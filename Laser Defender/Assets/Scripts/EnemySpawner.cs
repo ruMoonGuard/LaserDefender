@@ -1,19 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour {
-
+public class EnemySpawner : MonoBehaviour
+{
     public GameObject EnemyPrefab;
 
     // Use this for initialization
-	void Start () {
-        var newEnemyObject = Instantiate(EnemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        newEnemyObject.transform.parent = transform;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	void Start ()
+    {
+        foreach (Transform child in transform)
+        {
+            var newEnemyObject = Instantiate(EnemyPrefab, child.transform.position, Quaternion.identity);
+            newEnemyObject.transform.parent = child;
+        }
 	}
 }
