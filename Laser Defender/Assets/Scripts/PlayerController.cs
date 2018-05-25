@@ -5,6 +5,10 @@ public class PlayerController : MonoBehaviour
     public float Speed = 10;
     public float Padding = 1f;
 
+    public GameObject LaserPrefab;
+    public float SpeedLaser;
+    public float RateLaser = 0.2f;
+
     [SerializeField]
     float xMax, xMin;
     
@@ -17,8 +21,24 @@ public class PlayerController : MonoBehaviour
         xMax = rightmost.x - Padding;
     }
 	
+    void Fire()
+    {
+        var projectile = Instantiate(LaserPrefab, transform.position, Quaternion.identity);
+        var projectileRB2d = projectile.GetComponent<Rigidbody2D>();
+        projectileRB2d.velocity = new Vector3(0, SpeedLaser, 0);
+    }
+
 	void Update ()
     {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            InvokeRepeating("Fire", 0.00001f, RateLaser);
+        }
+        if(Input.GetKeyUp(KeyCode.Space))
+        {
+            CancelInvoke("Fire");
+        }
+
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             //transform.position += new Vector3(-Speed * Time.deltaTime, 0f, 0f);
