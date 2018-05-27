@@ -4,6 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     public float Speed = 10;
     public float Padding = 1f;
+    public float Health = 200f;
 
     public GameObject LaserPrefab;
     public float SpeedLaser;
@@ -52,5 +53,19 @@ public class PlayerController : MonoBehaviour
 
         float clampX = Mathf.Clamp(transform.position.x, xMin, xMax);
         transform.position = new Vector3(clampX, transform.position.y, transform.position.z);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Projectile projectile = collision.GetComponent<Projectile>();
+        if(projectile)
+        {
+            Health -= projectile.GetDamage();
+            projectile.Hit();
+            if(Health <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

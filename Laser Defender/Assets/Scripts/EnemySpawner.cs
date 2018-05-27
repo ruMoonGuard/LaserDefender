@@ -7,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
     public float Widht = 5f;
     public float Height = 5f;
     public float Speed = 3f;
+    public float SpawnSpeed = 1f;
 
     [SerializeField]
     float xMax, xMin;
@@ -14,11 +15,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start ()
     {
-        foreach (Transform child in transform)
-        {
-            var newEnemyObject = Instantiate(EnemyPrefab, child.transform.position, Quaternion.identity);
-            newEnemyObject.transform.parent = child;
-        }
+        SpawnEnemiesOneAtTime();
 
         float distance = transform.position.z - Camera.main.transform.position.z;
         Vector3 leftmost = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, distance));
@@ -51,10 +48,61 @@ public class EnemySpawner : MonoBehaviour
         {
             direction = -1;
         }
+
+        if(IsEmptyFormation())
+        {
+            SpawnEnemiesOneAtTime();
+        }
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(Widht, Height, 0f));
+    }
+
+    // custom private function
+
+    private bool IsEmptyFormation()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.childCount > 0) return false;
+        }
+
+        return true;
+    }
+
+    private void SpawnEnemies()
+    {
+        foreach (Transform child in transform)
+        {
+            var newEnemyObject = Instantiate(EnemyPrefab, child.transform.position, Quaternion.identity);
+            newEnemyObject.transform.parent = child;
+        }
+    }
+
+    private void SpawnEnemiesOneAtTime()
+    {
+        Transform freePosition = NextFreePosition();
+        if(freePosition)
+        {
+            var newEnemyObject = Instantiate(EnemyPrefab, freePosition.position, Quaternion.identity);
+            newEnemyObject.transform.parent = freePosition;
+        }
+
+        if (NextFreePosition())
+        {
+            Invoke("SpawnEnemiesOneAtTime", SpawnSpeed);
+        }
+    }
+
+    private Transform NextFreePosition()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.childCount == 0) return child;
+        }
+
+        return null;
     }
 }
