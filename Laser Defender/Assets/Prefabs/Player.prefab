@@ -105,6 +105,8 @@ MonoBehaviour:
     type: 2}
   SpeedLaser: 3
   RateLaser: 0.2
+  AudioDestroy: {fileID: 8300000, guid: df1f1f51867583d49813c4003af1419d, type: 3}
+  AudioFire: {fileID: 8300000, guid: 26f4668785102cb4aacf7ed387cb6415, type: 3}
   xMax: 0
   xMin: 0
 --- !u!212 &212797356364415628
@@ -139,8 +141,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1836369051
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5bff79665ac820645911cc2cf270fb89, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

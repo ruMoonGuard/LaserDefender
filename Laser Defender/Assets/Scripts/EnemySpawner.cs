@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start ()
     {
-        SpawnEnemiesOneAtTime();
+        SpawnEnemies();
 
         float distance = transform.position.z - Camera.main.transform.position.z;
         Vector3 leftmost = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, distance));

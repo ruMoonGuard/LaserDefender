@@ -10,8 +10,11 @@ public class PlayerController : MonoBehaviour
     public float SpeedLaser;
     public float RateLaser = 0.2f;
 
+    public AudioClip AudioDestroy;
+    public AudioClip AudioFire;
+
     [SerializeField]
-    float xMax, xMin;
+    private float xMax, xMin;
     
 	void Start ()
     {
@@ -27,6 +30,8 @@ public class PlayerController : MonoBehaviour
         var projectile = Instantiate(LaserPrefab, transform.position, Quaternion.identity);
         var projectileRB2d = projectile.GetComponent<Rigidbody2D>();
         projectileRB2d.velocity = new Vector3(0, SpeedLaser, 0);
+
+        AudioSource.PlayClipAtPoint(AudioFire, gameObject.transform.position);
     }
 
 	void Update ()
@@ -64,6 +69,7 @@ public class PlayerController : MonoBehaviour
             projectile.Hit();
             if(Health <= 0)
             {
+                AudioSource.PlayClipAtPoint(AudioDestroy, gameObject.transform.position);
                 Destroy(gameObject);
             }
         }

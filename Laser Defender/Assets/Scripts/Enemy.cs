@@ -3,10 +3,20 @@
 public class Enemy : MonoBehaviour
 {
     public GameObject Projectile;
+    public AudioClip AudioDestroy;
+    public AudioClip AudioFire;
 
     public float SpeedProjectile = 2.5f;
     public float ShootPerSeconds = 0.5f;
     public float Health = 150f;
+    public int ScoreValue = 150;
+
+    private ScoreKeeper scoreKeeper;
+
+    private void Start()
+    {
+        scoreKeeper = GameObject.Find("Score").GetComponent<ScoreKeeper>(); // very bad practic ;)
+    }
 
     private void Update()
     {
@@ -27,6 +37,8 @@ public class Enemy : MonoBehaviour
             projectile.Hit();
             if(Health <= 0)
             {
+                scoreKeeper.ScoreAdd(ScoreValue);
+                AudioSource.PlayClipAtPoint(AudioDestroy, gameObject.transform.position);
                 Destroy(gameObject);
             }
         }
@@ -37,5 +49,7 @@ public class Enemy : MonoBehaviour
         var projectile = Instantiate(Projectile, transform.position, Quaternion.identity);
         var projectileRB2d = projectile.GetComponent<Rigidbody2D>();
         projectileRB2d.velocity = Vector3.down * SpeedProjectile;
+
+        AudioSource.PlayClipAtPoint(AudioFire, gameObject.transform.position);
     }
 }

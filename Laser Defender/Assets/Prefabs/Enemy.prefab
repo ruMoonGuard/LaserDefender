@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212377328371896984}
   - component: {fileID: 61864238140119268}
   - component: {fileID: 114759792913090132}
+  - component: {fileID: 95201458275933756}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -67,6 +68,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.04, y: 0.84}
   m_EdgeRadius: 0
+--- !u!95 &95201458275933756
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1351817215479620}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2af16a71761ce0240888a93772e01965, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114759792913090132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -79,8 +98,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Projectile: {fileID: 1321151570868496, guid: 1106b2bec7be0bf4486f5dabb21e76ac, type: 2}
-  SpeedProjectile: 2.5
+  AudioDestroy: {fileID: 8300000, guid: df1f1f51867583d49813c4003af1419d, type: 3}
+  AudioFire: {fileID: 8300000, guid: ead2c8a70b18cee49bc3384ae98bd9af, type: 3}
+  SpeedProjectile: 5
+  ShootPerSeconds: 0.5
   Health: 150
+  ScoreValue: 150
 --- !u!212 &212377328371896984
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -113,8 +136,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1250512885
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b669234a4399232418b8ab36a73df0fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
